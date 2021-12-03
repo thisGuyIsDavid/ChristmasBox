@@ -9,11 +9,13 @@ class SerialMusicPlayer:
     def __init__(self, is_test=False):
         self.is_test = is_test
         self.is_playing = False
+        print('serial beginning')
+
         if self.is_test:
             self.serial = self.get_test_serial()
         else:
             self.serial = serial.Serial(port='/dev/ttyAMA0', baudrate=9600, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=5)
-
+        print('serial started')
         self.set_up()
 
     def set_up(self):

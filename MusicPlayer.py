@@ -75,6 +75,8 @@ class SerialMusicPlayer:
 
         #   send the play command to the DFPlayer.
         self.send_command(self.generate_command(0x12, 0x00, int(track_number)))
+        message = self.serial.readline()
+        print(message)
 
         #   set the is_playing variable.
         self.is_playing = True

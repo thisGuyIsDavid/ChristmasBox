@@ -68,7 +68,7 @@ class SerialMusicPlayer:
         self.serial.write(command)
         time.sleep(0.05)
 
-    def play(self, track_number, thread_connection):
+    def play(self, track_number):
         #   if something is already playing, return.
         if self.is_playing:
             return
@@ -82,9 +82,6 @@ class SerialMusicPlayer:
         play_start = time.time()
 
         while self.is_playing:
-            #   let the thread connection know the player is active.
-            thread_connection.is_party_going()
-
             #   read output. DFPlayer will return byte array when it completes.
             message = self.serial.readline()
             self.is_playing = len(bytearray(message)) == 0
@@ -99,8 +96,5 @@ class SerialMusicPlayer:
         #   set the is_playing variable.
         self.is_playing = False
 
-        #   let the thread connection know the player is inactive.
-        thread_connection.party_has_ended()
-
 if __name__ == '__main__':
-    print(len('7eff063d000004febaef'))
+    SerialMusicPlayer().play(1)

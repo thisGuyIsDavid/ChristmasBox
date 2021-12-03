@@ -84,6 +84,7 @@ class SerialMusicPlayer:
         while self.is_playing:
             #   read output. DFPlayer will return byte array when it completes.
             message = self.serial.readline()
+            print(message)
             self.is_playing = len(bytearray(message)) == 0
 
             #   sleep to avoid overloading connection.

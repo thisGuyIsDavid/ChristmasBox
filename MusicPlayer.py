@@ -67,6 +67,7 @@ class SerialMusicPlayer:
         return command_bytes
 
     def send_command(self, command):
+        print(command)
         self.serial.write(command)
         time.sleep(0.05)
 

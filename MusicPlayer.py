@@ -54,7 +54,7 @@ class SerialMusicPlayer:
         version_byte = 0xFF
         command_length = 0x06
         end_byte = 0xEF
-        feedback = 0x00
+        feedback = 0x01
 
         #   generate checksum.
         checksum = 65535 + -(version_byte + command_length + command_one + feedback + parameter_1 + parameter_2) + 1
@@ -67,7 +67,7 @@ class SerialMusicPlayer:
         return command_bytes
 
     def send_command(self, command):
-        print(command)
+        print('sending', command)
         self.serial.write(command)
         time.sleep(0.05)
 
@@ -79,7 +79,7 @@ class SerialMusicPlayer:
         #   send the play command to the DFPlayer.
         self.send_command(self.generate_command(0x12, 0x00, int(track_number)))
         message = self.serial.readline()
-        print(message)
+        print('received', message)
 
         #   set the is_playing variable.
         self.is_playing = True
@@ -103,4 +103,4 @@ class SerialMusicPlayer:
         self.is_playing = False
 
 if __name__ == '__main__':
-    SerialMusicPlayer().play(1)
+    SerialMusicPlayer().play(2)

@@ -42,6 +42,19 @@ class SerialMusicPlayer:
         return TestSerial()
 
     @staticmethod
+    def convert_dfplayer_response_to_hex(received_bytes):
+        converted_string = received_bytes.hex()
+        for i in range(int(len(converted_string) / 20)):
+            single_message = converted_string[i*20: (i*20) + 20]
+            single_message_array = []
+            for x in range(20):
+                two_characters = single_message[x*2:(x*2) + 2]
+                if two_characters != '':
+                    single_message_array.append(single_message[x*2:(x*2) + 2])
+            print(single_message_array)
+
+
+    @staticmethod
     def generate_command(command_one, parameter_1, parameter_2):
         """
         DFPlayer requires a special command set.
@@ -76,7 +89,7 @@ class SerialMusicPlayer:
         self.serial.write(command)
         time.sleep(0.05)
         message = self.serial.readline()
-        print('received', message)
+        print('received', self.convert_dfplayer_response_to_hex(message))
 
     def play(self, track_number):
         #   if something is already playing, return.

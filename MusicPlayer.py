@@ -9,13 +9,10 @@ class SerialMusicPlayer:
     def __init__(self, is_test=False):
         self.is_test = is_test
         self.is_playing = False
-        print('serial beginning')
-
         if self.is_test:
             self.serial = self.get_test_serial()
         else:
             self.serial = serial.Serial(port='/dev/ttyS0', baudrate=9600, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=5)
-        print('serial started')
         self.set_up()
 
     def set_up(self):
@@ -24,7 +21,6 @@ class SerialMusicPlayer:
 
         #   set the volume
         self.send_command(self.generate_command(0x06, 0x00, 15))
-
 
     def get_test_serial(self):
         class TestSerial:
@@ -52,7 +48,6 @@ class SerialMusicPlayer:
                     single_message_array.append(single_message[x*2:(x*2) + 2])
             print(single_message_array)
 
-
     @staticmethod
     def generate_command(command_one, parameter_1, parameter_2):
         """
@@ -77,7 +72,6 @@ class SerialMusicPlayer:
         high_byte, low_byte = divmod(checksum, 0x100)
 
         array_of_bytes = [start_byte, version_byte, command_length, command_one, feedback, parameter_1, parameter_2, high_byte, low_byte, end_byte]
-        print('sending', array_of_bytes)
 
         command_bytes = bytes(array_of_bytes)
         return command_bytes
@@ -90,6 +84,12 @@ class SerialMusicPlayer:
         message = self.serial.readline()
         self.convert_dfplayer_response_to_hex(message)
 
+    def stop_playback(self):
+        self.send_command(self.generate_command(0x16, 0x00, 0x00))
+
+    def set_volume(self, volume_level=15):
+        self.send_command(self.generate_command(0x06, 0x00, int(volume_level)))
+
     def play(self, track_number):
         #   if something is already playing, return.
         if self.is_playing:
@@ -97,8 +97,6 @@ class SerialMusicPlayer:
 
         #   send the play command to the DFPlayer.
         self.send_command(self.generate_command(0x12, 0x00, int(track_number)))
-        message = self.serial.readline()
-        print('received', message)
 
         #   set the is_playing variable.
         self.is_playing = True
@@ -119,6 +117,14 @@ class SerialMusicPlayer:
 
         #   set the is_playing variable.
         self.is_playing = False
+
+    def play_all(self):
+        try:
+            pass
+        except KeyboardInterrupt:
+            #   stop any playback
+            self.send_command(self.generate_command(0x16, 0x00, 0x00))
+
 
 if __name__ == '__main__':
     SerialMusicPlayer().play(random.randint(2, 160))

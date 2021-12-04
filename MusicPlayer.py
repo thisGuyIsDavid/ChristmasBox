@@ -69,8 +69,12 @@ class SerialMusicPlayer:
         return command_bytes
 
     def send_command(self, command):
+        print('sending', command)
+
         self.serial.write(command)
         time.sleep(0.05)
+        message = self.serial.readline()
+        print('received', message)
 
     def play(self, track_number):
         #   if something is already playing, return.

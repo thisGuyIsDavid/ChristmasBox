@@ -16,11 +16,8 @@ class SerialMusicPlayer:
         self.set_up()
 
     def set_up(self):
-        #   stop any playback
-        self.send_command(self.generate_command(0x16, 0x00, 0x00))
-
-        #   set the volume
-        self.send_command(self.generate_command(0x06, 0x00, 15))
+        self.stop_playback()
+        self.set_volume()
 
     def get_test_serial(self):
         class TestSerial:
@@ -90,13 +87,19 @@ class SerialMusicPlayer:
     def set_volume(self, volume_level=15):
         self.send_command(self.generate_command(0x06, 0x00, int(volume_level)))
 
+    def play_track(self, track_number):
+        self.send_command(self.generate_command(0x12, 0x00, int(track_number)))
+
+    def play_blank_space(self):
+        pass
+
     def play(self, track_number):
         #   if something is already playing, return.
         if self.is_playing:
             return
 
         #   send the play command to the DFPlayer.
-        self.send_command(self.generate_command(0x12, 0x00, int(track_number)))
+        self.play_track(track_number)
 
         #   set the is_playing variable.
         self.is_playing = True
@@ -120,11 +123,15 @@ class SerialMusicPlayer:
 
     def play_all(self):
         try:
+            while True:
+                track_number = random.randint(2, 160)
+                self.play(track_number)
             pass
         except KeyboardInterrupt:
             #   stop any playback
-            self.send_command(self.generate_command(0x16, 0x00, 0x00))
+            self.stop_playback()
+
 
 
 if __name__ == '__main__':
-    SerialMusicPlayer().play(random.randint(2, 160))
+    SerialMusicPlayer().play_all()

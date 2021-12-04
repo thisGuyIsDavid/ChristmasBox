@@ -63,11 +63,12 @@ class SerialMusicPlayer:
         high_byte, low_byte = divmod(checksum, 0x100)
 
         array_of_bytes = [start_byte, version_byte, command_length, command_one, feedback, parameter_1, parameter_2, high_byte, low_byte, end_byte]
+        print('sending', array_of_bytes)
+
         command_bytes = bytes(array_of_bytes)
         return command_bytes
 
     def send_command(self, command):
-        print('sending', command)
         self.serial.write(command)
         time.sleep(0.05)
 

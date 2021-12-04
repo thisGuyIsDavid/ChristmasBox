@@ -1,6 +1,6 @@
 import subprocess
 import time
-
+import random
 import serial
 
 
@@ -25,7 +25,6 @@ class SerialMusicPlayer:
         #   set the volume
         self.send_command(self.generate_command(0x06, 0x00, 15))
 
-        self.send_command(self.generate_command(0x12, 0x00, int(2)))
 
     def get_test_serial(self):
         class TestSerial:
@@ -109,7 +108,6 @@ class SerialMusicPlayer:
         while self.is_playing:
             #   read output. DFPlayer will return byte array when it completes.
             message = self.serial.readline()
-            print(message)
             self.is_playing = len(bytearray(message)) == 0
 
             #   sleep to avoid overloading connection.
@@ -123,4 +121,4 @@ class SerialMusicPlayer:
         self.is_playing = False
 
 if __name__ == '__main__':
-    SerialMusicPlayer()#.play(2)
+    SerialMusicPlayer().play(random.randint(2, 160))

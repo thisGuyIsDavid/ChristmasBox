@@ -23,7 +23,7 @@ class SerialMusicPlayer:
         self.send_command(self.generate_command(0x16, 0x00, 0x00))
 
         #   set the volume
-        #   self.send_command(self.generate_command(0x06, 0x00, 15))
+        self.send_command(self.generate_command(0x06, 0x00, 15))
 
     def get_test_serial(self):
         class TestSerial:

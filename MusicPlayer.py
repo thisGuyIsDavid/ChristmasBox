@@ -25,7 +25,7 @@ class SerialMusicPlayer:
         #   set the volume
         self.send_command(self.generate_command(0x06, 0x00, 15))
 
-        self.send_command(self.generate_command(0x12, 0x00, int(1)))
+        self.send_command(self.generate_command(0x12, 0x00, int(2)))
 
     def get_test_serial(self):
         class TestSerial:
@@ -89,7 +89,7 @@ class SerialMusicPlayer:
         self.serial.write(command)
         time.sleep(0.05)
         message = self.serial.readline()
-        print('received', self.convert_dfplayer_response_to_hex(message))
+        self.convert_dfplayer_response_to_hex(message)
 
     def play(self, track_number):
         #   if something is already playing, return.

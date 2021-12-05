@@ -32,8 +32,25 @@ class ChristmasLights:
             self.set_tree_light(i, color)
         self.strip.show()
 
+    #   STAR LIGHTS
+    def set_star_colors(self, color_array):
+        self.star_colors = color_array
 
+    def set_star_light(self, position, color):
+        position = 40 + position
+        self.strip.setPixelColor(position, color)
 
+    def light_star(self, wait_ms=50):
+        for i in range(0, 7):
+            self.set_star_light(i, self.star_colors[0])
+            self.strip.show()
+            time.sleep(wait_ms / 1000)
+
+    def twinkle_star(self, tick):
+        for i in range(0, 7):
+            color = self.star_colors[(i+tick) % len(self.star_colors)]
+            self.set_star_light(i, color)
+        self.strip.show()
 
     @staticmethod
     def wheel(pos):
@@ -49,9 +66,6 @@ class ChristmasLights:
     #   Light setters.
 
 
-    def set_star_light(self, position, color):
-        position = 40 + position
-        self.strip.setPixelColor(position, color)
 
     def set_trunk_light(self, position, color):
         if position < 4:
@@ -62,25 +76,11 @@ class ChristmasLights:
 
     #   Solid lighting.
 
-
-    def light_star(self, color, wait_ms=50):
-        for i in range(0, 7):
-            self.set_star_light(i, color)
-            self.strip.show()
-            time.sleep(wait_ms / 1000)
-
     def light_trunk(self, color, wait_ms=50):
         for i in range(8):
             self.set_trunk_light(i, color)
             self.strip.show()
             time.sleep(wait_ms / 1000.0)
-
-    #   Twinkle lighting.
-    def twinkle_star(self, tick):
-        for i in range(0, 7):
-            color = self.wheel(35 + ((i + tick) % 15))
-            self.set_star_light(i, color)
-        self.strip.show()
 
     def clear_all_lights(self, wait_ms=50):
         for i in range(53):
@@ -94,6 +94,7 @@ class ChristmasLights:
             tick_count = 0
             while True:
                 self.twinkle_tree(tick_count)
+                self.twinkle_star(tick_count)
                 time.sleep(150/1000)
                 tick_count += 1
         except KeyboardInterrupt:
@@ -119,7 +120,20 @@ if __name__ == '__main__':
             Color(36, 219, 0),
             Color(39, 216, 0)
         ]
-
     )
     christmas_lights.light_tree()
+
+    christmas_lights.set_star_colors(
+        [
+            Color(234, 21, 0),
+            Color(237, 18, 0),
+            Color(240, 15, 0),
+            Color(243, 12, 0),
+            Color(246, 9, 0),
+            Color(249, 6, 0),
+            Color(252, 3, 0)
+        ]
+    )
+    christmas_lights.light_star()
+
     christmas_lights.run()

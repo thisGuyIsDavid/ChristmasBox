@@ -44,7 +44,7 @@ class DFPlayer:
         version_byte = 0xFF
         command_length = 0x06
         end_byte = 0xEF
-        feedback = 0x00
+        feedback = 0x01
 
         #   generate checksum.
         checksum = 65535 + -(version_byte + command_length + command_one + feedback + parameter_1 + parameter_2) + 1

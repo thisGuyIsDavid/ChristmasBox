@@ -44,7 +44,7 @@ class DFPlayer:
         version_byte = 0xFF
         command_length = 0x06
         end_byte = 0xEF
-        feedback = 0x01
+        feedback = 0x00
 
         #   generate checksum.
         checksum = 65535 + -(version_byte + command_length + command_one + feedback + parameter_1 + parameter_2) + 1
@@ -59,11 +59,8 @@ class DFPlayer:
 
     def send_command(self, command):
         print('sending', command)
-
         self.serial.write(command)
-        time.sleep(0.05)
-        message = self.serial.readline()
-        self.convert_dfplayer_response_to_hex(message)
+
 
     def stop_playback(self):
         self.send_command(self.generate_command(0x16, 0x00, 0x00))

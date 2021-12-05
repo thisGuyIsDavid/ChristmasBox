@@ -128,23 +128,32 @@ if __name__ == '__main__':
     christmas_lights = ChristmasLights()
     christmas_lights.set_tree_colors(
         [
-            Color(255, 255, 255)
+            Color(0, 102, 153),
+            Color(0, 105, 150),
+            Color(0, 108, 147),
+            Color(0, 111, 144),
+            Color(0, 114, 141),
+            Color(0, 117, 138),
+            Color(0, 120, 135),
+            Color(0, 123, 132),
+            Color(0, 126, 129),
+            Color(0, 129, 126),
+            Color(0, 132, 123),
+            Color(0, 135, 120),
+            Color(0, 138, 117),
+            Color(0, 141, 114),
+            Color(0, 144, 111),
+            Color(0, 147, 108),
+            Color(0, 150, 105),
+            Color(0, 153, 102),
         ]
     )
     christmas_lights.light_tree()
 
     christmas_lights.set_star_colors(
         [
-            Color(90, 165, 0),
-            Color(93, 162, 0),
-            Color(96, 159, 0),
-            Color(99, 156, 0),
-            Color(102, 153, 0),
-            Color(105, 150, 0),
-            Color(108, 147, 0),
-            Color(111, 144, 0),
-            Color(114, 141, 0),
-            Color(117, 138, 0)
+            Color(255, 255, 255),
+            Color(128, 128, 128)
         ]
     )
     christmas_lights.light_star()

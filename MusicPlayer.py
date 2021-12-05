@@ -21,6 +21,7 @@ class SerialMusicPlayer:
     def set_up(self):
         self.stop_playback()
         self.set_volume()
+        self.set_up_lights()
 
     def set_up_lights(self):
         self.christmas.light_traditional()

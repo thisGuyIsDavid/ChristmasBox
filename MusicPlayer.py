@@ -164,3 +164,4 @@ class SerialMusicPlayer:
 
 if __name__ == '__main__':
     serial_music_player = SerialMusicPlayer()
+    serial_music_player.play_all()

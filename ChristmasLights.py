@@ -79,12 +79,6 @@ class ChristmasLights:
             self.set_star_light(i, color)
         self.strip.show()
 
-    def twinkle_tree(self, tick):
-        for i in range(32):
-            color = self.wheel((i + tick) % 30)
-            self.set_tree_light(i, color)
-        self.strip.show()
-
     def clear_all_lights(self, wait_ms=50):
         for i in range(53):
             self.strip.setPixelColor(i, Color(0, 0, 0))

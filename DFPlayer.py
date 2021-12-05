@@ -16,6 +16,8 @@ class DFPlayer:
         self.stop_playback()
         self.set_volume()
         self.play_track(random.randint(1, 158))
+        time.sleep(10)
+        self.is_playing()
 
     @staticmethod
     def convert_dfplayer_response_to_hex(received_bytes):

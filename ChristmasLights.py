@@ -20,13 +20,23 @@ class ChristmasLights:
         self.strip.begin()
 
     def light_tree(self, color, wait_ms=50):
-        for i in range(0, 32):
+        for i in range(0, 16):
             self.strip.setPixelColor(i, color)
             self.strip.show()
             time.sleep(wait_ms / 1000.0)
 
+        for i in range(20, 36):
+            self.strip.setPixelColor(i, color)
+            self.strip.show()
+            time.sleep(wait_ms / 1000.0)
+
+
     def light_trunk(self, color, wait_ms=50):
-        for i in range(32, 40):
+        for i in range(16, 20):
+            self.strip.setPixelColor(i, color)
+            self.strip.show()
+            time.sleep(wait_ms / 1000.0)
+        for i in range(36, 40):
             self.strip.setPixelColor(i, color)
             self.strip.show()
             time.sleep(wait_ms / 1000.0)

@@ -89,10 +89,12 @@ class SerialMusicPlayer:
         command_bytes = bytes(array_of_bytes)
         return command_bytes
 
-    def send_command(self, command):
+    def send_command(self, command, get_feedback=False):
         print('sending', command)
 
         self.serial.write(command)
+        if not get_feedback:
+            return
         time.sleep(0.05)
         message = self.serial.readline()
         self.convert_dfplayer_response_to_hex(message)

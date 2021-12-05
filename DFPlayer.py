@@ -14,6 +14,8 @@ class DFPlayer:
     def set_up(self):
         self.stop_playback()
         self.set_volume()
+        self.set_random_playback()
+        self.play_track(random.randint(2, 156))
 
     @staticmethod
     def convert_dfplayer_response_to_hex(received_bytes):
@@ -81,4 +83,3 @@ class DFPlayer:
 
 if __name__ == '__main__':
     serial_music_player = DFPlayer()
-    serial_music_player.set_random_playback()

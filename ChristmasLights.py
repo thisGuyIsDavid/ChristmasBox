@@ -28,7 +28,7 @@ class ChristmasLights:
         for i in range(0, 7):
             self.set_star_light(i, color)
             self.strip.show()
-            time.sleep(wait_ms)
+            time.sleep(wait_ms / 1000)
 
     def light_trunk(self, color, wait_ms=50):
         for i in range(16, 20):

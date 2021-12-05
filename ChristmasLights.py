@@ -14,6 +14,7 @@ class ChristmasLights:
         self.strip.setPixelColor(converted_position, color)
 
     def set_star_light(self, position, color):
+        print(position, 40 + position)
         position = 40 + position
         self.strip.setPixelColor(position, color)
 

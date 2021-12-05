@@ -10,7 +10,7 @@ class ChristmasLights:
         self.strip.begin()
 
     def set_tree_light(self, position, color):
-        converted_position = position if position < 15 else (20 + (position - 15))
+        converted_position = position if position < 16 else (20 + (position - 15))
         print(position, converted_position)
         self.strip.setPixelColor(converted_position, color)
 

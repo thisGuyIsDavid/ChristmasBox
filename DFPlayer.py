@@ -6,7 +6,8 @@ import serial
 
 class DFPlayer:
 
-    def __init__(self):
+    def __init__(self, queue):
+        self.queue = queue
         self.is_playing = False
         self.serial = serial.Serial(port='/dev/ttyS0', baudrate=9600, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=5)
         self.set_up()
@@ -14,8 +15,7 @@ class DFPlayer:
     def set_up(self):
         self.stop_playback()
         self.set_volume()
-        self.set_random_playback()
-        self.send_command(self.generate_command(0x0D, 0x00, 0x00))
+        self.play_track(random.randint(1, 158))
 
     @staticmethod
     def convert_dfplayer_response_to_hex(received_bytes):
@@ -27,16 +27,17 @@ class DFPlayer:
                 two_characters = single_message[x*2:(x*2) + 2]
                 if two_characters != '':
                     single_message_array.append(single_message[x*2:(x*2) + 2])
-            print(single_message_array)
+            return single_message_array
 
     @staticmethod
-    def generate_command(command_one, parameter_1, parameter_2):
+    def generate_command(command_one, parameter_1, parameter_2, feedback=False):
         """
         DFPlayer requires a special command set.
         Found though https://github.com/DFRobot/DFRobotDFPlayerMini/blob/master/doc/FN-M16P%2BEmbedded%2BMP3%2BAudio%2BModule%2BDatasheet.pdf
         :param command_one: Hexadecimal command for DF Player.
         :param parameter_1: Command param from above URL.
         :param parameter_2: Command param from above URL.
+        :param feedback: whether to ask DFPlayer for response.
         :return: DFPlayer compatible code.
         """
 
@@ -44,7 +45,7 @@ class DFPlayer:
         version_byte = 0xFF
         command_length = 0x06
         end_byte = 0xEF
-        feedback = 0x00
+        feedback = 0x01 if feedback else 0x00
 
         #   generate checksum.
         checksum = 65535 + -(version_byte + command_length + command_one + feedback + parameter_1 + parameter_2) + 1
@@ -57,25 +58,31 @@ class DFPlayer:
         command_bytes = bytes(array_of_bytes)
         return command_bytes
 
-    def send_command(self, command):
-        print('sending', command)
-        self.serial.write(command)
+    def send_command(self, command_type, parameter_one, parameter_two, return_feedback=False):
+        generated_command = self.generate_command(command_type, parameter_one, parameter_two, return_feedback)
+        self.serial.write(generated_command)
+        if not return_feedback:
+            return
+        time.sleep(0.05)
+        message = self.serial.readline()
+        return self.convert_dfplayer_response_to_hex(message)
 
     def stop_playback(self):
-        self.send_command(self.generate_command(0x16, 0x00, 0x00))
+        self.send_command(0x16, 0x00, 0x00)
 
     def set_volume(self, volume_level=15):
-        self.send_command(self.generate_command(0x06, 0x00, int(volume_level)))
+        self.send_command(0x06, 0x00, int(volume_level))
 
     def play_track(self, track_number):
-        self.send_command(self.generate_command(0x12, 0x00, int(track_number)))
+        self.send_command(0x12, 0x00, int(track_number))
 
     def play_blank_space(self):
         pass
 
-    def set_random_playback(self):
-        self.send_command(self.generate_command(0x18, 0x00, 0x00))
+    def is_playing(self):
+        result = self.send_command(0x42, 0x00, 0x00)
+        print(result)
 
 
 if __name__ == '__main__':
-    serial_music_player = DFPlayer()
+    serial_music_player = DFPlayer(queue=None)

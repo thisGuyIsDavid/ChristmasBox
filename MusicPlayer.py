@@ -108,8 +108,8 @@ class SerialMusicPlayer:
     def play_blank_space(self):
         self.send_command(self.generate_command(0x13, 0x00, 0x01))
 
-
     def play(self, track_number):
+        self.stop_playback()
         #   if something is already playing, return.
         if self.is_playing:
             return

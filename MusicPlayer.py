@@ -129,6 +129,8 @@ class SerialMusicPlayer:
             #   sleep to avoid overloading connection.
             time.sleep(0.02)
 
+            print(self.stop_button.value, self.skip_button.value, self.blank_space_button.value)
+
             if self.stop_button.is_pressed:
                 print('stop_button')
 

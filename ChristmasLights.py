@@ -51,14 +51,14 @@ class ChristmasLights:
         for i in range(40, 47):
             color = self.wheel((i + tick) % 85)
             self.strip.setPixelColor(i, color)
-            time.sleep(wait_ms / 1000.0)
-            self.strip.show()
+        self.strip.show()
 
     def run(self):
         self.light_tree(Color(0, 255, 0))
         #   self.light_trunk(Color(0, 255, 0))
         for i in range(200):
             self.twinkle_star(i)
+            time.sleep(50 / 1000)
 
 if __name__ == '__main__':
     ChristmasLights().run()

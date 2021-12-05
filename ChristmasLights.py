@@ -32,6 +32,9 @@ class ChristmasLights:
             self.set_tree_light(i, color)
         self.strip.show()
 
+
+
+
     @staticmethod
     def wheel(pos):
         if pos < 85:
@@ -102,10 +105,21 @@ if __name__ == '__main__':
     christmas_lights = ChristmasLights()
     christmas_lights.set_tree_colors(
         [
-            Color(0, 255, 0),
+            Color(90, 165, 0),
+            Color(93, 162, 0),
+            Color(96, 159, 0),
+            Color(99, 156, 0),
+            Color(102, 153, 0),
             Color(105, 150, 0),
-            Color(135, 120, 0),
-            Color(165, 90, 0)
+            Color(108, 147, 0),
+            Color(111, 144, 0),
+            Color(114, 141, 0),
+            Color(117, 138, 0),
+            Color(120, 135, 0),
+            Color(123, 132, 0),
+            Color(126, 129, 0),
+            Color(129, 126, 0),
+            Color(132, 123, 0)
         ]
 
     )

@@ -77,7 +77,7 @@ class ChristmasLights:
     def run(self):
         self.light_tree(Color(0, 255, 0))
         self.light_star(Color(255, 255, 0))
-        self.light_trunk(Color(0, 0, 255))
+        #   self.light_trunk(Color(0, 0, 255))
 
         try:
             for i in range(200):

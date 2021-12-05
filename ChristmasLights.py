@@ -57,7 +57,7 @@ class ChristmasLights:
         self.light_star(Color(255, 255, 0))
 
         for i in range(200):
-            self.twinkle_star(i, Color(255, 255, 0), (Color(255, 0, 0)))
+            self.twinkle_star(i, Color(255, 255, 0), (Color(0, 0, 0)))
             time.sleep(1)
 
 if __name__ == '__main__':

@@ -10,10 +10,6 @@ from rpi_ws281x import PixelStrip, Color
 import argparse
 
 class ChristmasLights:
-    #   Tree: 0-31
-    #   Trunk: 32-39
-    #   Star: 40-46
-
 
     def __init__(self):
         self.strip = PixelStrip(55, 18, 800000, 10, False, 255, 0)
@@ -40,14 +36,20 @@ class ChristmasLights:
             self.strip.show()
             time.sleep(wait_ms / 1000.0)
 
-    def light_star(self, color, wait_ms=50):
-        for i in range(40, 47):
-            self.strip.setPixelColor(i, color)
-        self.strip.show()
+    @staticmethod
+    def wheel(pos):
+        if pos < 85:
+            return Color(pos * 3, 255 - pos * 3, 0)
+        elif pos < 170:
+            pos -= 85
+            return Color(255 - pos * 3, 0, pos * 3)
+        else:
+            pos -= 170
+            return Color(0, pos * 3, 255 - pos * 3)
 
-    def twinkle_star(self, tick, color_1, color_2, wait_ms=250):
+    def twinkle_star(self, tick, wait_ms=250):
         for i in range(40, 47):
-            color = color_1 if (i + (tick % 2)) % 2 == 0 else color_2
+            color = self.wheel((i + tick) % 85)
             self.strip.setPixelColor(i, color)
             time.sleep(wait_ms / 1000.0)
             self.strip.show()
@@ -55,10 +57,8 @@ class ChristmasLights:
     def run(self):
         self.light_tree(Color(0, 255, 0))
         #   self.light_trunk(Color(0, 255, 0))
-        self.light_star(Color(255, 255, 0))
-
         for i in range(200):
-            self.twinkle_star(i, Color(255, 255, 0), (Color(0, 0, 0)))
+            self.twinkle_star(i)
 
 if __name__ == '__main__':
     ChristmasLights().run()

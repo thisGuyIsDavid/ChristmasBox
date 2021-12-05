@@ -80,10 +80,11 @@ class ChristmasLights:
         self.light_trunk(Color(0, 255, 0))
 
         try:
-            for i in range(20000):
-                #   self.twinkle_tree(i)
-                self.twinkle_star(i)
+            tick_count = 0
+            while True:
+                self.twinkle_star(tick_count)
                 time.sleep(150/1000)
+                tick_count += 1
         except KeyboardInterrupt:
             pass
         finally:

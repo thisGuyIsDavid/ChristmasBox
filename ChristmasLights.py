@@ -14,8 +14,14 @@ class ChristmasLights:
         self.strip.setPixelColor(converted_position, color)
 
     def set_star_light(self, position, color):
-        print(position, 40 + position)
         position = 40 + position
+        self.strip.setPixelColor(position, color)
+
+    def set_trunk_light(self, position, color):
+        if position < 4:
+            position = 16 + position
+        if position >= 4:
+            position = 36 + position
         self.strip.setPixelColor(position, color)
 
     def light_tree(self, color, wait_ms=50):
@@ -31,12 +37,8 @@ class ChristmasLights:
             time.sleep(wait_ms / 1000)
 
     def light_trunk(self, color, wait_ms=50):
-        for i in range(16, 20):
-            self.strip.setPixelColor(i, color)
-            self.strip.show()
-            time.sleep(wait_ms / 1000.0)
-        for i in range(36, 40):
-            self.strip.setPixelColor(i, color)
+        for i in range(8):
+            self.set_trunk_light(i, color)
             self.strip.show()
             time.sleep(wait_ms / 1000.0)
 
@@ -66,6 +68,7 @@ class ChristmasLights:
     def run(self):
         self.light_tree(Color(0, 255, 0))
         self.light_star(Color(255, 255, 0))
+        self.light_trunk(Color(0, 0, 255))
 
 if __name__ == '__main__':
     ChristmasLights().run()

@@ -21,7 +21,7 @@ class ChristmasLights:
         if position < 4:
             position = 16 + position
         if position >= 4:
-            position = 36 + position
+            position = 36 + (position - 4)
         self.strip.setPixelColor(position, color)
 
     def light_tree(self, color, wait_ms=50):

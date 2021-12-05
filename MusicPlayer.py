@@ -22,6 +22,11 @@ class SerialMusicPlayer:
         self.stop_playback()
         self.set_volume()
 
+    def set_up_lights(self):
+        self.christmas.light_traditional()
+        self.christmas.light_tree()
+        self.christmas.light_star()
+
     def get_test_serial(self):
         class TestSerial:
             iterator = 0
@@ -109,6 +114,7 @@ class SerialMusicPlayer:
 
         play_start = time.time()
 
+        tick_count = 0
         while self.is_playing:
             #   read output. DFPlayer will return byte array when it completes.
             message = self.serial.readline()
@@ -116,10 +122,12 @@ class SerialMusicPlayer:
 
             #   sleep to avoid overloading connection.
             time.sleep(0.02)
+            self.christmas.twinkle_tree(tick_count)
 
             #   if testing, don't go longer than 3 seconds.
             if self.is_test and (time.time() - play_start) > 3:
                 break
+            tick_count += 1
 
         #   set the is_playing variable.
         self.is_playing = False

@@ -11,6 +11,7 @@ class ChristmasLights:
 
         self.tree_colors = []
         self.star_colors = []
+        self.trunk_colors = []
 
     #   TREE LIGHTS
     def set_tree_colors(self, color_array):
@@ -52,20 +53,9 @@ class ChristmasLights:
             self.set_star_light(i, color)
         self.strip.show()
 
-    @staticmethod
-    def wheel(pos):
-        if pos < 85:
-            return Color(pos * 3, 255 - pos * 3, 0)
-        elif pos < 170:
-            pos -= 85
-            return Color(255 - pos * 3, 0, pos * 3)
-        else:
-            pos -= 170
-            return Color(0, pos * 3, 255 - pos * 3)
-
-    #   Light setters.
-
-
+    #   Trunk
+    def set_trunk_colors(self, color_array):
+        self.trunk_colors = color_array
 
     def set_trunk_light(self, position, color):
         if position < 4:
@@ -74,11 +64,9 @@ class ChristmasLights:
             converted_position = 36 + (position - 4)
         self.strip.setPixelColor(converted_position, color)
 
-    #   Solid lighting.
-
-    def light_trunk(self, color, wait_ms=50):
+    def light_trunk(self, wait_ms=50):
         for i in range(8):
-            self.set_trunk_light(i, color)
+            self.set_trunk_light(i, self.trunk_colors[0])
             self.strip.show()
             time.sleep(wait_ms / 1000.0)
 
@@ -88,8 +76,42 @@ class ChristmasLights:
             self.strip.show()
             time.sleep(wait_ms / 1000)
 
-    def run(self):
+    #   Presents
+    def light_traditional(self):
+        self.set_tree_colors(
+            [
+                Color(3, 252, 0),
+                Color(6, 249, 0),
+                Color(9, 246, 0),
+                Color(12, 243, 0),
+                Color(15, 240, 0),
+                Color(18, 237, 0),
+                Color(21, 234, 0),
+                Color(24, 231, 0),
+                Color(27, 228, 0),
+                Color(30, 225, 0),
+                Color(33, 222, 0),
+                Color(36, 219, 0),
+                Color(39, 216, 0)
+            ]
+        )
+        self.set_star_colors(
+            [
+                Color(90, 165, 0),
+                Color(93, 162, 0),
+                Color(96, 159, 0),
+                Color(99, 156, 0),
+                Color(102, 153, 0),
+                Color(105, 150, 0),
+                Color(108, 147, 0),
+                Color(111, 144, 0),
+                Color(114, 141, 0),
+                Color(117, 138, 0)
+            ]
+        )
 
+
+    def run(self):
         try:
             tick_count = 0
             while True:
@@ -106,19 +128,18 @@ if __name__ == '__main__':
     christmas_lights = ChristmasLights()
     christmas_lights.set_tree_colors(
         [
-            Color(3, 252, 0),
-            Color(6, 249, 0),
-            Color(9, 246, 0),
-            Color(12, 243, 0),
-            Color(15, 240, 0),
-            Color(18, 237, 0),
-            Color(21, 234, 0),
-            Color(24, 231, 0),
-            Color(27, 228, 0),
-            Color(30, 225, 0),
-            Color(33, 222, 0),
-            Color(36, 219, 0),
-            Color(39, 216, 0)
+            Color(0, 0, 255),
+            Color(0, 3, 252),
+            Color(0, 6, 249),
+            Color(0, 9, 246),
+            Color(0, 12, 243),
+            Color(0, 15, 240),
+            Color(0, 18, 237),
+            Color(0, 21, 234),
+            Color(0, 24, 231),
+            Color(0, 27, 228),
+            Color(0, 30, 225),
+            Color(0, 33, 222),
         ]
     )
     christmas_lights.light_tree()

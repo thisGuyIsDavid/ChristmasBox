@@ -20,7 +20,7 @@ class ChristmasLights:
 
     def light_tree(self, color, wait_ms=50):
         for i in range(32):
-            self.light_tree(i, color)
+            self.set_tree_light(i, color)
             self.strip.show()
             time.sleep(wait_ms / 1000.0)
 

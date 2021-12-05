@@ -1,19 +1,22 @@
-#!/usr/bin/env python3
-# NeoPixel library strandtest example
-# Author: Tony DiCola (tony@tonydicola.com)
-#
-# Direct port of the Arduino NeoPixel library strandtest example.  Showcases
-# various animations on a strip of NeoPixels.
-
 import time
+
 from rpi_ws281x import PixelStrip, Color
-import argparse
+
 
 class ChristmasLights:
 
     def __init__(self):
         self.strip = PixelStrip(55, 18, 800000, 10, False, 255, 0)
         self.strip.begin()
+
+    def set_tree_light(self, position, color):
+        if position > 15:
+            position = 20 + position
+        self.strip.setPixelColor(position, color)
+
+    def set_star_light(self, position, color):
+        position = 40 + position
+        self.strip.setPixelColor(position, color)
 
     def light_tree(self, color, wait_ms=50):
         for i in range(0, 16):
@@ -53,11 +56,18 @@ class ChristmasLights:
             self.strip.setPixelColor(i, color)
         self.strip.show()
 
+    def twinkle_tree(self, tick):
+        for i in range(32):
+            color = self.wheel(((i + tick) % 30))
+            self.light_tree(i, color)
+        self.strip.show()
+
     def run(self):
         self.light_tree(Color(0, 255, 0))
         #   self.light_trunk(Color(0, 255, 0))
         for i in range(200):
             self.twinkle_star(i)
+            self.twinkle_tree(i)
             time.sleep(50 / 1000)
 
 if __name__ == '__main__':

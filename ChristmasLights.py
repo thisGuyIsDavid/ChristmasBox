@@ -153,7 +153,6 @@ if __name__ == '__main__':
     christmas_lights.set_star_colors(
         [
             Color(255, 255, 255),
-            Color(128, 128, 128)
         ]
     )
     christmas_lights.light_star()

@@ -58,7 +58,7 @@ class ChristmasLights:
     #   Twinkle lighting.
     def twinkle_star(self, tick):
         for i in range(0, 7):
-            color = self.wheel(35 + ((i + tick) % 30))
+            color = self.wheel(35 + ((i + tick) % 15))
             self.set_star_light(i, color)
         self.strip.show()
 

@@ -38,8 +38,8 @@ class ChristmasLights:
             time.sleep(wait_ms / 1000.0)
 
     def run(self):
-        self.light_tree((0, 255, 0))
-        self.light_star((255, 255, 0))
+        self.light_tree(Color(0, 255, 0))
+        self.light_star(Color(255, 255, 0))
 
 if __name__ == '__main__':
     ChristmasLights().run()

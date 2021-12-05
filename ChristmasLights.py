@@ -92,8 +92,7 @@ class ChristmasLights:
             time.sleep(wait_ms / 1000)
 
     def twinkle(self, tick):
-        pass
-
+        pa
     def run(self):
 
         try:

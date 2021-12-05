@@ -25,6 +25,7 @@ class SerialMusicPlayer:
 
     def set_up_lights(self):
         self.christmas.light_traditional()
+        print('lights set')
         self.christmas.light_tree()
         self.christmas.light_star()
 

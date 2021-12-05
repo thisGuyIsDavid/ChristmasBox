@@ -111,8 +111,8 @@ if __name__ == '__main__':
     christmas_lights.set_tree_colors(
         [
             Color(0, 255, 0),
-            Color(105, 150, 0),
-            Color(135, 120, 0)
+            Color(0, 155, 0),
+            Color(0, 55, 0)
         ]
 
     )

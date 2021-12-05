@@ -135,7 +135,7 @@ class SerialMusicPlayer:
                 print('stop_button')
 
             if self.skip_button.is_pressed:
-                print('skip button')
+                break
 
             if self.blank_space_button.is_pressed:
                 print('blank space')
@@ -149,6 +149,11 @@ class SerialMusicPlayer:
 
         #   set the is_playing variable.
         self.is_playing = False
+
+    def skip_song(self):
+        track_number = random.randint(2, 160)
+        self.play(track_number)
+
 
     def play_all(self):
         try:

@@ -51,6 +51,7 @@ class ChristmasLights:
            color = color_1 if (i + (tick % 2)) % 2 == 0 else color_2
            self.strip.setPixelColor(i, color)
            self.strip.show()
+           time.sleep(wait_ms / 1000.0)
 
     def run(self):
         self.light_tree(Color(0, 255, 0))

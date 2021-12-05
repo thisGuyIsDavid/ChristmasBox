@@ -81,7 +81,7 @@ class ChristmasLights:
 
         try:
             for i in range(200):
-                self.twinkle_tree(i)
+                #   self.twinkle_tree(i)
                 self.twinkle_star(i)
                 time.sleep(50/1000)
         except KeyboardInterrupt:

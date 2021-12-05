@@ -45,7 +45,7 @@ class ChristmasLights:
             self.strip.setPixelColor(i, color)
         self.strip.show()
 
-    def twinkle_star(self, tick, color_1, color_2, wait_ms=50):
+    def twinkle_star(self, tick, color_1, color_2, wait_ms=250):
         for i in range(40, 47):
             color = color_1 if (i + (tick % 2)) % 2 == 0 else color_2
             self.strip.setPixelColor(i, color)

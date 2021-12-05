@@ -19,10 +19,11 @@ class ChristmasLights:
 
     def set_trunk_light(self, position, color):
         if position < 4:
-            position = 16 + position
-        if position >= 4:
-            position = 36 + (position - 4)
-        self.strip.setPixelColor(position, color)
+            converted_position = 16 + position
+        else:
+            converted_position = 36 + (position - 4)
+        print(position, converted_position)
+        self.strip.setPixelColor(converted_position, color)
 
     def light_tree(self, color, wait_ms=50):
         for i in range(32):

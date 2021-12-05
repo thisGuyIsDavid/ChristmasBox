@@ -9,6 +9,29 @@ class ChristmasLights:
         self.strip = PixelStrip(55, 18, 800000, 10, False, 255, 0)
         self.strip.begin()
 
+        self.tree_colors = []
+        self.star_colors = []
+
+    #   TREE LIGHTS
+    def set_tree_colors(self, color_array):
+        self.tree_colors = color_array
+
+    def set_tree_light(self, position, color):
+        converted_position = position if position < 16 else (20 + (position - 16))
+        self.strip.setPixelColor(converted_position, color)
+
+    def light_tree(self, wait_ms=50):
+        for i in range(32):
+            self.set_tree_light(i, self.tree_colors[0])
+            self.strip.show()
+            time.sleep(wait_ms / 1000.0)
+
+    def twinkle_tree(self, tick):
+        for i in range(32):
+            color = self.tree_colors[(i+tick) % len(self.tree_colors)]
+            self.set_tree_light(i, color)
+        self.strip.show()
+
     @staticmethod
     def wheel(pos):
         if pos < 85:
@@ -21,9 +44,7 @@ class ChristmasLights:
             return Color(0, pos * 3, 255 - pos * 3)
 
     #   Light setters.
-    def set_tree_light(self, position, color):
-        converted_position = position if position < 16 else (20 + (position - 16))
-        self.strip.setPixelColor(converted_position, color)
+
 
     def set_star_light(self, position, color):
         position = 40 + position
@@ -37,11 +58,7 @@ class ChristmasLights:
         self.strip.setPixelColor(converted_position, color)
 
     #   Solid lighting.
-    def light_tree(self, color, wait_ms=50):
-        for i in range(32):
-            self.set_tree_light(i, color)
-            self.strip.show()
-            time.sleep(wait_ms / 1000.0)
+
 
     def light_star(self, color, wait_ms=50):
         for i in range(0, 7):
@@ -74,6 +91,11 @@ class ChristmasLights:
             self.strip.show()
             time.sleep(wait_ms / 1000)
 
+    def twinkle(self, tick):
+        pass
+
+
+
     def run(self):
         self.light_tree(Color(0, 255, 0))
         self.light_star(Color(255, 255, 0))
@@ -91,4 +113,14 @@ class ChristmasLights:
             self.clear_all_lights()
 
 if __name__ == '__main__':
-    ChristmasLights().run()
+    christmas_lights = ChristmasLights()
+    christmas_lights.set_tree_colors(
+        [
+            Color(0, 255, 0),
+            Color(105, 150, 0),
+            Color(135, 120, 0),
+            Color(165, 90, 0)
+        ]
+
+    )
+    christmas_lights.light_tree()

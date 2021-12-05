@@ -1,11 +1,15 @@
 import random
 import time
+
 import serial
+
+from ChristmasLights import ChristmasLights
 
 
 class SerialMusicPlayer:
 
     def __init__(self, is_test=False):
+        self.christmas = ChristmasLights()
         self.is_test = is_test
         self.is_playing = False
         if self.is_test:
@@ -13,7 +17,6 @@ class SerialMusicPlayer:
         else:
             self.serial = serial.Serial(port='/dev/ttyS0', baudrate=9600, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=5)
         self.set_up()
-
 
     def set_up(self):
         self.stop_playback()

@@ -105,21 +105,19 @@ if __name__ == '__main__':
     christmas_lights = ChristmasLights()
     christmas_lights.set_tree_colors(
         [
-            Color(90, 165, 0),
-            Color(93, 162, 0),
-            Color(96, 159, 0),
-            Color(99, 156, 0),
-            Color(102, 153, 0),
-            Color(105, 150, 0),
-            Color(108, 147, 0),
-            Color(111, 144, 0),
-            Color(114, 141, 0),
-            Color(117, 138, 0),
-            Color(120, 135, 0),
-            Color(123, 132, 0),
-            Color(126, 129, 0),
-            Color(129, 126, 0),
-            Color(132, 123, 0)
+            Color(3, 252, 0),
+            Color(6, 249, 0),
+            Color(9, 246, 0),
+            Color(12, 243, 0),
+            Color(15, 240, 0),
+            Color(18, 237, 0),
+            Color(21, 234, 0),
+            Color(24, 231, 0),
+            Color(27, 228, 0),
+            Color(30, 225, 0),
+            Color(33, 222, 0),
+            Color(36, 219, 0),
+            Color(39, 216, 0)
         ]
 
     )

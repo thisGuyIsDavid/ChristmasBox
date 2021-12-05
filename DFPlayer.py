@@ -61,7 +61,6 @@ class DFPlayer:
         print('sending', command)
         self.serial.write(command)
 
-
     def stop_playback(self):
         self.send_command(self.generate_command(0x16, 0x00, 0x00))
 

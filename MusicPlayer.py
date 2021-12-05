@@ -22,6 +22,7 @@ class SerialMusicPlayer:
         self.skip_button = Button(22)
         self.blank_space_button = Button(23)
 
+
     def set_up(self):
         self.stop_playback()
         self.set_volume()
@@ -105,7 +106,8 @@ class SerialMusicPlayer:
         self.send_command(self.generate_command(0x12, 0x00, int(track_number)))
 
     def play_blank_space(self):
-        pass
+        self.send_command(self.generate_command(0x13, 0x00, 0x01))
+
 
     def play(self, track_number):
         #   if something is already playing, return.
@@ -133,12 +135,10 @@ class SerialMusicPlayer:
                 print('stop_button')
 
             if self.skip_button.is_pressed:
-                self.stop_playback()
-                print('skip')
                 break
 
             if self.blank_space_button.is_pressed:
-                print('blank space')
+                self.play_blank_space()
 
             self.christmas.twinkle_tree(tick_count)
 

@@ -15,6 +15,7 @@ class DFPlayer:
         self.stop_playback()
         self.set_volume()
         self.set_random_playback()
+        self.send_command(self.generate_command(0x0D, 0x00, 0x00))
 
     @staticmethod
     def convert_dfplayer_response_to_hex(received_bytes):

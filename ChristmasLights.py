@@ -39,7 +39,9 @@ class ChristmasLights:
 
     def run(self):
         self.light_tree(Color(0, 255, 0))
+        self.light_trunk(Color(255, 0, 0))
         self.light_star(Color(255, 255, 0))
+
 
 if __name__ == '__main__':
     ChristmasLights().run()

@@ -94,7 +94,6 @@ class ChristmasLights:
     def twinkle(self, tick):
         pass
 
-
     def run(self):
 
         try:

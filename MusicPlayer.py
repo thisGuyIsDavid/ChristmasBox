@@ -61,13 +61,14 @@ class SerialMusicPlayer:
             print(single_message_array)
 
     @staticmethod
-    def generate_command(command_one, parameter_1, parameter_2):
+    def generate_command(command_one, parameter_1, parameter_2, get_feedback=False):
         """
         DFPlayer requires a special command set.
         Found though https://github.com/DFRobot/DFRobotDFPlayerMini/blob/master/doc/FN-M16P%2BEmbedded%2BMP3%2BAudio%2BModule%2BDatasheet.pdf
         :param command_one: Hexadecimal command for DF Player.
         :param parameter_1: Command param from above URL.
         :param parameter_2: Command param from above URL.
+        :param get_feedback: whether or not to get the feedback.
         :return: DFPlayer compatible code.
         """
 
@@ -75,7 +76,7 @@ class SerialMusicPlayer:
         version_byte = 0xFF
         command_length = 0x06
         end_byte = 0xEF
-        feedback = 0x01
+        feedback = 0x01 if get_feedback else 0x00
 
         #   generate checksum.
         checksum = 65535 + -(version_byte + command_length + command_one + feedback + parameter_1 + parameter_2) + 1

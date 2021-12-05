@@ -95,16 +95,12 @@ class ChristmasLights:
         pass
 
 
-
     def run(self):
-        self.light_tree(Color(0, 255, 0))
-        self.light_star(Color(255, 255, 0))
-        self.light_trunk(Color(0, 255, 0))
 
         try:
             tick_count = 0
             while True:
-                self.twinkle_star(tick_count)
+                self.twinkle_tree(tick_count)
                 time.sleep(150/1000)
                 tick_count += 1
         except KeyboardInterrupt:
@@ -124,3 +120,4 @@ if __name__ == '__main__':
 
     )
     christmas_lights.light_tree()
+    christmas_lights.run()

@@ -1,6 +1,6 @@
 import random
 import time
-
+from gpiozero import Button
 import serial
 
 from ChristmasLights import ChristmasLights
@@ -17,6 +17,10 @@ class SerialMusicPlayer:
         else:
             self.serial = serial.Serial(port='/dev/ttyS0', baudrate=9600, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=5)
         self.set_up()
+
+        self.stop_button = Button(27)
+        self.skip_button = Button(22)
+        self.blank_space_button = Button(23)
 
     def set_up(self):
         self.stop_playback()
@@ -124,6 +128,16 @@ class SerialMusicPlayer:
 
             #   sleep to avoid overloading connection.
             time.sleep(0.02)
+
+            if self.stop_button.is_pressed:
+                print('stop_button')
+
+            if self.skip_button.is_pressed:
+                print('skip button')
+
+            if self.blank_space_button.is_pressed:
+                print('blank space')
+
             self.christmas.twinkle_tree(tick_count)
 
             #   if testing, don't go longer than 3 seconds.
@@ -147,4 +161,4 @@ class SerialMusicPlayer:
 
 
 if __name__ == '__main__':
-    SerialMusicPlayer().play_all()
+    serial_music_player = SerialMusicPlayer()

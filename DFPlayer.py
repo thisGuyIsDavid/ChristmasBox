@@ -81,7 +81,7 @@ class DFPlayer:
         pass
 
     def is_playing(self):
-        result = self.send_command(0x42, 0x00, 0x00)
+        result = self.send_command(0x42, 0x00, 0x00, return_feedback=True)
         print(result)
 
 

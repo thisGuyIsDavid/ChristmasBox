@@ -135,6 +135,8 @@ class SerialMusicPlayer:
                 print('stop_button')
 
             if self.skip_button.is_pressed:
+                self.stop_playback()
+                print('skip')
                 break
 
             if self.blank_space_button.is_pressed:

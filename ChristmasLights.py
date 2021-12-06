@@ -120,7 +120,7 @@ class ChristmasLights:
             while True:
                 self.light_tree()
                 self.light_star()
-                time.sleep(15)
+                time.sleep(2)
                 tick_count += 1
                 self.scheme = tick_count % len(self.TREE_COLORS)
         except KeyboardInterrupt:

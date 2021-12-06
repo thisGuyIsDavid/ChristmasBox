@@ -118,8 +118,8 @@ class ChristmasLights:
         try:
             tick_count = 0
             while True:
-                self.light_tree(tick_count)
-                self.light_star(tick_count)
+                self.light_tree()
+                self.light_star()
                 time.sleep(15)
                 tick_count += 1
                 self.scheme = tick_count % len(self.TREE_COLORS)

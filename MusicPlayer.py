@@ -22,7 +22,6 @@ class SerialMusicPlayer:
         self.skip_button = Button(22)
         self.blank_space_button = Button(23)
 
-
     def set_up(self):
         self.stop_playback()
         self.set_volume()
@@ -167,7 +166,6 @@ class SerialMusicPlayer:
         except KeyboardInterrupt:
             #   stop any playback
             self.stop_playback()
-
 
 
 if __name__ == '__main__':

@@ -5,9 +5,13 @@ from rpi_ws281x import PixelStrip, Color
 
 class ChristmasLights:
 
+    TREE_COLORS = [Color(0, 255, 0), Color(0, 128, 128)]
+    STAR_COLORS = [Color(128, 128, 0), Color(255, 255, 255)]
+
     def __init__(self):
         self.strip = PixelStrip(55, 18, 800000, 10, False, 255, 0)
         self.strip.begin()
+        self.scheme = 0
 
         self.tree_colors = []
         self.star_colors = []
@@ -23,7 +27,7 @@ class ChristmasLights:
 
     def light_tree(self, wait_ms=50):
         for i in range(32):
-            self.set_tree_light(i, self.tree_colors[0])
+            self.set_tree_light(i, self.TREE_COLORS[self.scheme])
             self.strip.show()
             time.sleep(wait_ms / 1000.0)
 
@@ -43,7 +47,7 @@ class ChristmasLights:
 
     def light_star(self, wait_ms=50):
         for i in range(0, 7):
-            self.set_star_light(i, self.star_colors[0])
+            self.set_star_light(i, self.STAR_COLORS[self.scheme])
             self.strip.show()
             time.sleep(wait_ms / 1000)
 
@@ -110,15 +114,15 @@ class ChristmasLights:
             ]
         )
 
-
     def run(self):
         try:
             tick_count = 0
             while True:
-                self.twinkle_tree(tick_count)
-                self.twinkle_star(tick_count)
-                time.sleep(150/1000)
+                self.light_tree(tick_count)
+                self.light_star(tick_count)
+                time.sleep(15)
                 tick_count += 1
+                self.scheme = tick_count % len(self.TREE_COLORS)
         except KeyboardInterrupt:
             pass
         finally:
@@ -126,35 +130,4 @@ class ChristmasLights:
 
 if __name__ == '__main__':
     christmas_lights = ChristmasLights()
-    christmas_lights.set_tree_colors(
-        [
-            Color(0, 102, 153),
-            Color(0, 105, 150),
-            Color(0, 108, 147),
-            Color(0, 111, 144),
-            Color(0, 114, 141),
-            Color(0, 117, 138),
-            Color(0, 120, 135),
-            Color(0, 123, 132),
-            Color(0, 126, 129),
-            Color(0, 129, 126),
-            Color(0, 132, 123),
-            Color(0, 135, 120),
-            Color(0, 138, 117),
-            Color(0, 141, 114),
-            Color(0, 144, 111),
-            Color(0, 147, 108),
-            Color(0, 150, 105),
-            Color(0, 153, 102),
-        ]
-    )
-    christmas_lights.light_tree()
-
-    christmas_lights.set_star_colors(
-        [
-            Color(255, 255, 255),
-        ]
-    )
-    christmas_lights.light_star()
-
     christmas_lights.run()

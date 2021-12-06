@@ -5,8 +5,8 @@ from rpi_ws281x import PixelStrip, Color
 
 class ChristmasLights:
 
-    TREE_COLORS = [Color(0, 255, 0), Color(0, 128, 128)]
-    STAR_COLORS = [Color(128, 128, 0), Color(255, 255, 255)]
+    TREE_COLORS = [Color(0, 255, 0), Color(0, 128, 128), Color(255, 0, 0), Color(255, 255, 255)]
+    STAR_COLORS = [Color(128, 128, 0), Color(255, 255, 255), Color(0, 255, 0), Color(255, 0, 0)]
 
     def __init__(self):
         self.strip = PixelStrip(55, 18, 800000, 10, False, 255, 0)
